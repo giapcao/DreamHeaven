@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "MTBqGjchS+o=",
+  "success": true,
+  "projectFilePath": "D:\\MyRepo\\DreamHeaven\\DreamHeaven.BLL\\DreamHeaven.BLL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.100\\microsoft.net.sdk.compilers.toolset.9.0.100.nupkg.sha512"
+  ],
+  "logs": []
+}

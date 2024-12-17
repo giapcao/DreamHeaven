@@ -1,0 +1,69 @@
+name: CI for .NET and React
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend:
+    name: Build and Test .NET Backend
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ 8.0, 9.0 ]
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup .NET environment
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      # Step 3: Restore dependencies
+      - name: Restore .NET dependencies
+        run: dotnet restore ./backend
+
+      # Step 4: Build the backend
+      - name: Build .NET project
+        run: dotnet build --no-restore ./backend
+
+      # Step 5: Run tests
+      - name: Run .NET tests
+        run: dotnet test ./backend
+
+  frontend:
+    name: Build and Test React Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install dependencies
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run frontend tests
+        working-directory: ./frontend
+        run: npm test
+
+      # Step 5: Build the frontend
+      - name: Build React app
+        working-directory: ./frontend
+        run: npm run build
